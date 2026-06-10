@@ -119,6 +119,11 @@ body {
   line-height: 1.7;
   color: var(--color-text);
   background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(200, 151, 42, 0.06) 0%, transparent 42%),
+    radial-gradient(circle at 85% 85%, rgba(200, 151, 42, 0.05) 0%, transparent 45%),
+    linear-gradient(160deg, #faf8f4 0%, #f3eee4 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -158,10 +163,30 @@ address { font-style: normal; }
 }
 
 /* ---- Sections ---- */
-.section { padding: var(--section-padding); }
+.section {
+  padding: var(--section-padding);
+  position: relative;
+}
 .section--dark {
   background-color: var(--color-dark);
+  background-image:
+    radial-gradient(circle at 80% 10%, rgba(200, 151, 42, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(200, 151, 42, 0.08) 0%, transparent 45%);
   color: rgba(255,255,255,0.85);
+}
+
+/* Elegant hairline divider accent between light sections */
+.section + .section:not(.section--dark)::before,
+.section--dark + .section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.7;
 }
 
 .section-label {
@@ -534,10 +559,22 @@ address { font-style: normal; }
 
 /* Form */
 .contact-form {
-  background: var(--color-surface);
-  padding: 40px;
+  position: relative;
+  background: linear-gradient(165deg, #ffffff 0%, #f5f1e9 100%);
+  padding: 44px 40px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: 1px solid rgba(200, 151, 42, 0.12);
+  overflow: hidden;
+}
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light), var(--color-gold));
 }
 .form-group { margin-bottom: 20px; }
 .form-group label {

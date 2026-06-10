@@ -627,6 +627,18 @@ address { font-style: normal; }
   color: var(--color-gold);
 }
 
+.form-note {
+  margin: 14px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.form-note::before {
+  content: '⏱ ';
+  color: var(--color-gold);
+}
+
 /* ======================================================================
    FOOTER
    ====================================================================== */

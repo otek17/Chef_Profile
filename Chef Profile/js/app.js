@@ -47,43 +47,143 @@ if (header) {
   window.addEventListener('scroll', updateHeader, { passive: true });
 }
 
-/* ---- Contact form (client-side demo) ---- */
+/* ---- Contact form ---- */
+/*
+ * Sends the enquiry by email. Two methods are supported:
+ *
+ * 1. EmailJS (recommended – fully automated, no backend needed).
+ *    - Create a free account at https://www.emailjs.com/
+ *    - Add an email service and an email template.
+ *    - Paste your three IDs below. Your template should reference the
+ *      variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}.
+ *
+ * 2. Fallback: if EmailJS is not configured, the visitor's email client
+ *    opens with the message pre-filled (mailto:).
+ */
+const EMAILJS_CONFIG = {
+  publicKey: 'YOUR_PUBLIC_KEY',     // EmailJS Public Key
+  serviceId: 'YOUR_SERVICE_ID',     // EmailJS Service ID
+  templateId: 'YOUR_TEMPLATE_ID',   // EmailJS Template ID
+};
+
+// Where enquiries are sent when using the mailto fallback.
+const CONTACT_EMAIL = 'foodandspirit@icloud.com';
+
+// Shown to the customer after a successful submission.
+const RESPONSE_MESSAGE =
+  '✓ Thank you! Your message has been sent. Please allow up to 3 business days for a response.';
+
+const isEmailJsConfigured = () =>
+  typeof window.emailjs !== 'undefined' &&
+  EMAILJS_CONFIG.publicKey &&
+  !EMAILJS_CONFIG.publicKey.startsWith('YOUR_') &&
+  !EMAILJS_CONFIG.serviceId.startsWith('YOUR_') &&
+  !EMAILJS_CONFIG.templateId.startsWith('YOUR_');
+
+// Initialise EmailJS if it is configured and loaded.
+if (isEmailJsConfigured()) {
+  window.emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+}
+
 const form = document.getElementById('contact-form');
 const formStatus = document.getElementById('form-status');
 
 if (form && formStatus) {
-  form.addEventListener('submit', e => {
+  const setStatus = (text, ok = true) => {
+    formStatus.style.color = ok ? '#4caf50' : '#e05252';
+    formStatus.textContent = text;
+  };
+
+  // Opens the visitor's mail client with the enquiry pre-filled.
+  const sendViaMailto = ({ name, email, subject, message }) => {
+    const lines = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      subject ? `Subject: ${subject}` : null,
+      '',
+      message,
+    ].filter(Boolean);
+    const mailtoSubject = encodeURIComponent(
+      subject ? `Website enquiry: ${subject}` : 'Website enquiry'
+    );
+    const mailtoBody = encodeURIComponent(lines.join('\n'));
+    window.location.href =
+      `mailto:${CONTACT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
+  };
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const name = form.name.value.trim();
     const email = form.email.value.trim();
+    const subject = form.subject ? form.subject.value.trim() : '';
     const message = form.message.value.trim();
 
     if (!name || !email || !message) {
-      formStatus.style.color = '#e05252';
-      formStatus.textContent = 'Please fill in all required fields.';
+      setStatus('Please fill in all required fields.', false);
       return;
     }
 
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRe.test(email)) {
-      formStatus.style.color = '#e05252';
-      formStatus.textContent = 'Please enter a valid email address.';
+      setStatus('Please enter a valid email address.', false);
       return;
     }
 
-    // Simulate async send
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
+    setStatus('Sending your message…');
 
-    setTimeout(() => {
-      formStatus.style.color = '#4caf50';
-      formStatus.textContent = '✓ Thank you! Your message has been sent. I\'ll be in touch soon.';
-      form.reset();
+    const payload = {
+      from_name: name,
+      from_email: email,
+      reply_to: email,
+      subject: subject || 'General enquiry',
+      message,
+    };
+
+    try {
+      if (isEmailJsConfigured()) {
+        await window.emailjs.send(
+          EMAILJS_CONFIG.serviceId,
+          EMAILJS_CONFIG.templateId,
+          payload
+        );
+        setStatus(RESPONSE_MESSAGE);
+        form.reset();
+        // Friendly confirmation prompt for the customer.
+        window.alert(
+          'Thank you for reaching out!\n\n' +
+          'Your message has been sent successfully. ' +
+          'Please allow up to 3 business days to receive a response.'
+        );
+      } else {
+        // No EmailJS keys yet – fall back to the visitor's mail client.
+        sendViaMailto({ name, email, subject, message });
+        setStatus(
+          'Your email app has opened — please press send. ' +
+          'You can expect a response within 3 business days.'
+        );
+        window.alert(
+          'Almost done!\n\n' +
+          'Your email app should open with the message ready. ' +
+          'Please press send to deliver it.\n\n' +
+          'You can expect a response within 3 business days.'
+        );
+        form.reset();
+      }
+    } catch (err) {
+      console.error('Email send failed:', err);
+      setStatus(
+        'Sorry, something went wrong sending your message. ' +
+        `Please email ${CONTACT_EMAIL} directly.`,
+        false
+      );
+    } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send Message';
-    }, 1400);
+    }
   });
 }
 

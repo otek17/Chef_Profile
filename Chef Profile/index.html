@@ -24,6 +24,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- EmailJS SDK (client-side email sending) -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -275,6 +278,7 @@
             <textarea id="message" name="message" rows="5" placeholder="Tell me about your enquiry…" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn--full">Send Message</button>
+          <p class="form-note">I personally read every enquiry and aim to respond within 3 business days.</p>
           <p class="form-status" id="form-status" role="alert" aria-live="polite"></p>
         </form>
 

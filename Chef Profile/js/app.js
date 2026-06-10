@@ -116,7 +116,11 @@ if (form && formStatus) {
 
     const name = form.name.value.trim();
     const email = form.email.value.trim();
-    const subject = form.subject ? form.subject.value.trim() : '';
+    const subjectField = form.querySelector('#subject');
+    // Use the human-readable label (e.g. "Private Dining") instead of the value ("private").
+    const subject = subjectField
+      ? (subjectField.options[subjectField.selectedIndex].text || subjectField.value).trim()
+      : '';
     const message = form.message.value.trim();
 
     if (!name || !email || !message) {

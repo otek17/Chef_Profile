@@ -27,8 +27,10 @@ jobs:
 		  node-version: 20
 		  cache: npm
 
-	  - name: Configure Pages
+      - name: Configure Pages
 		uses: actions/configure-pages@v5
+		with:
+		  static_site_generator: webpack
 
 	  - name: Install dependencies
 		run: npm ci

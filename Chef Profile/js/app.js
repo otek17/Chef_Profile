@@ -67,7 +67,7 @@ const EMAILJS_CONFIG = {
 };
 
 // Where enquiries are sent when using the mailto fallback.
-const CONTACT_EMAIL = 'oninbejosano@gmail.com';
+const CONTACT_EMAIL = 'cbiscocho85@gmail.com';
 
 // Shown to the customer after a successful submission.
 const RESPONSE_MESSAGE =
@@ -208,7 +208,7 @@ if (form && formStatus) {
 }
 
 /* ---- Scroll-reveal cards (Intersection Observer) ---- */
-const revealElements = document.querySelectorAll('.dish-card, .about-grid, .contact-grid');
+const revealElements = document.querySelectorAll('.gallery-item, .about-grid, .contact-grid');
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(
     (entries) => {

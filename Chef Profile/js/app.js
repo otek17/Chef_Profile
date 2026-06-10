@@ -61,9 +61,9 @@ if (header) {
  *    opens with the message pre-filled (mailto:).
  */
 const EMAILJS_CONFIG = {
-  publicKey: 'YOUR_PUBLIC_KEY',     // EmailJS Public Key
-  serviceId: 'YOUR_SERVICE_ID',     // EmailJS Service ID
-  templateId: 'YOUR_TEMPLATE_ID',   // EmailJS Template ID
+  publicKey: 'FT9F3B40004-bJstw',     // EmailJS Public Key
+  serviceId: 'service_g0c6j2g',     // EmailJS Service ID
+  templateId: 'template_pwpe055',   // EmailJS Template ID
 };
 
 // Where enquiries are sent when using the mailto fallback.

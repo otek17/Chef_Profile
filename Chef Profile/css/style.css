@@ -175,6 +175,31 @@ address { font-style: normal; }
   color: rgba(255,255,255,0.85);
 }
 
+/* Dishes section – elegant photographic background */
+.dishes {
+  position: relative;
+  background-color: var(--color-dark);
+  background-image:
+    linear-gradient(rgba(18, 18, 18, 0.92), rgba(18, 18, 18, 0.94)),
+    url('../img/roasted_meat.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+/* Soft gold glow accents layered above the photo */
+.dishes::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(200, 151, 42, 0.16) 0%, transparent 42%),
+    radial-gradient(circle at 12% 92%, rgba(200, 151, 42, 0.10) 0%, transparent 46%);
+}
+/* Keep section content above the decorative overlay */
+.dishes > .container { position: relative; z-index: 1; }
+
 /* Elegant hairline divider accent between light sections */
 .section + .section:not(.section--dark)::before,
 .section--dark + .section::before {
@@ -444,15 +469,19 @@ address { font-style: normal; }
 }
 
 .dish-card {
-  background: #232323;
+  background: rgba(35, 35, 35, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(200, 151, 42, 0.18);
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 .dish-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
+  border-color: rgba(200, 151, 42, 0.45);
 }
 
 .dish-image-wrapper {
@@ -688,6 +717,7 @@ address { font-style: normal; }
   .nav-menu li a { display: block; padding: 12px 0; font-size: 1rem; }
   .contact-form { padding: 28px 20px; }
   .hero { background-attachment: scroll; }
+  .dishes { background-attachment: scroll; }
 }
 
 /* ======================================================================

@@ -25,12 +25,14 @@ html {
  */
 
 ::-moz-selection {
-  background: #b3d4fc;
+  background: #e3d2b0;
+  color: #211b17;
   text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
+  background: #e3d2b0;
+  color: #211b17;
   text-shadow: none;
 }
 
@@ -86,20 +88,23 @@ textarea {
 
 /* ---- CSS Variables ---- */
 :root {
-  --color-bg: #faf8f4;
-  --color-dark: #1a1a1a;
-  --color-dark-alt: #2c2c2c;
-  --color-gold: #c8972a;
-  --color-gold-light: #e5b84a;
-  --color-text: #3a3a3a;
-  --color-text-muted: #777;
-  --color-white: #ffffff;
-  --color-surface: #f0ece4;
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
-  --radius: 8px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.10);
-  --shadow-hover: 0 8px 36px rgba(0,0,0,0.18);
+  /* Old, rich palette: parchment, antique gold, deep wine, espresso */
+  --color-bg: #f5efe2;
+  --color-dark: #211b17;
+  --color-dark-alt: #2e2620;
+  --color-wine: #5e1f2d;
+  --color-wine-deep: #461420;
+  --color-gold: #b08d57;
+  --color-gold-light: #caa869;
+  --color-text: #3b332b;
+  --color-text-muted: #877a68;
+  --color-white: #fdfbf6;
+  --color-surface: #efe7d6;
+  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --radius: 6px;
+  --shadow: 0 6px 26px rgba(33, 27, 23, 0.14);
+  --shadow-hover: 0 12px 40px rgba(33, 27, 23, 0.24);
   --transition: 0.3s ease;
   --container-width: 1180px;
   --section-padding: 96px 0;
@@ -115,14 +120,14 @@ textarea {
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   color: var(--color-text);
   background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 15% 12%, rgba(200, 151, 42, 0.06) 0%, transparent 42%),
-    radial-gradient(circle at 85% 85%, rgba(200, 151, 42, 0.05) 0%, transparent 45%),
-    linear-gradient(160deg, #faf8f4 0%, #f3eee4 100%);
+    radial-gradient(circle at 15% 12%, rgba(176, 141, 87, 0.08) 0%, transparent 42%),
+    radial-gradient(circle at 85% 85%, rgba(94, 31, 45, 0.06) 0%, transparent 45%),
+    linear-gradient(160deg, #f6f0e3 0%, #ece2cf 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
@@ -147,7 +152,9 @@ a:focus-visible {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--color-dark);
-  line-height: 1.2;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  font-weight: 600;
   margin-top: 0;
 }
 
@@ -170,9 +177,9 @@ address { font-style: normal; }
 .section--dark {
   background-color: var(--color-dark);
   background-image:
-    radial-gradient(circle at 80% 10%, rgba(200, 151, 42, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 10% 90%, rgba(200, 151, 42, 0.08) 0%, transparent 45%);
-  color: rgba(255,255,255,0.85);
+    radial-gradient(circle at 80% 10%, rgba(176, 141, 87, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(94, 31, 45, 0.12) 0%, transparent 45%);
+  color: rgba(253, 251, 246, 0.85);
 }
 
 /* Dishes section – elegant photographic background */
@@ -180,7 +187,7 @@ address { font-style: normal; }
   position: relative;
   background-color: var(--color-dark);
   background-image:
-    linear-gradient(rgba(18, 18, 18, 0.92), rgba(18, 18, 18, 0.94)),
+    linear-gradient(rgba(28, 22, 18, 0.92), rgba(28, 22, 18, 0.95)),
     url('../img/roasted_meat.jpg');
   background-size: cover;
   background-position: center;
@@ -194,8 +201,8 @@ address { font-style: normal; }
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 82% 8%, rgba(200, 151, 42, 0.16) 0%, transparent 42%),
-    radial-gradient(circle at 12% 92%, rgba(200, 151, 42, 0.10) 0%, transparent 46%);
+    radial-gradient(circle at 82% 8%, rgba(176, 141, 87, 0.18) 0%, transparent 42%),
+    radial-gradient(circle at 12% 92%, rgba(94, 31, 45, 0.14) 0%, transparent 46%);
 }
 /* Keep section content above the decorative overlay */
 .dishes > .container { position: relative; z-index: 1; }
@@ -277,10 +284,11 @@ address { font-style: normal; }
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(26,26,26,0.96);
+  background: rgba(33, 27, 23, 0.96);
+  border-bottom: 1px solid rgba(176, 141, 87, 0.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.35);
 }
 
 .navbar {
@@ -360,7 +368,7 @@ address { font-style: normal; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(26,26,26,0.82) 0%, rgba(26,26,26,0.62) 100%);
+  background: linear-gradient(135deg, rgba(33, 27, 23, 0.84) 0%, rgba(70, 20, 32, 0.62) 100%);
 }
 .hero-content {
   position: relative;
@@ -561,11 +569,11 @@ address { font-style: normal; }
 /* Form */
 .contact-form {
   position: relative;
-  background: linear-gradient(165deg, #ffffff 0%, #f5f1e9 100%);
+  background: linear-gradient(165deg, #fdfbf6 0%, #efe7d6 100%);
   padding: 44px 40px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  border: 1px solid rgba(200, 151, 42, 0.12);
+  border: 1px solid rgba(176, 141, 87, 0.18);
   overflow: hidden;
 }
 .contact-form::before {
@@ -575,7 +583,7 @@ address { font-style: normal; }
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light), var(--color-gold));
+  background: linear-gradient(90deg, var(--color-wine), var(--color-gold), var(--color-wine));
 }
 .form-group { margin-bottom: 20px; }
 .form-group label {
@@ -594,10 +602,10 @@ address { font-style: normal; }
 .form-group textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #d8d2c8;
+  border: 1px solid #ccbfa6;
   border-radius: var(--radius);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   color: var(--color-text);
   background: var(--color-white);
   transition: border-color var(--transition), box-shadow var(--transition);
@@ -609,11 +617,11 @@ address { font-style: normal; }
 .form-group textarea:focus {
   outline: none;
   border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(200,151,42,0.15);
+  box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.18);
 }
 .form-group textarea { resize: vertical; min-height: 130px; }
 .form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23877a68'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 20px;
@@ -689,7 +697,7 @@ address { font-style: normal; }
     top: 68px;
     left: 0;
     width: 100%;
-    background: rgba(26,26,26,0.98);
+    background: rgba(33, 27, 23, 0.98);
     padding: 16px 24px 24px;
     gap: 0;
   }

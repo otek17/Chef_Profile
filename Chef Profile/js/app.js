@@ -67,7 +67,7 @@ const EMAILJS_CONFIG = {
 };
 
 // Where enquiries are sent when using the mailto fallback.
-const CONTACT_EMAIL = 'cbiscocho85@gmail.com';
+const CONTACT_EMAIL = 'oninbejosano@gmail.com';
 
 // Shown to the customer after a successful submission.
 const RESPONSE_MESSAGE =

@@ -135,12 +135,27 @@ if (form && formStatus) {
     submitBtn.textContent = 'Sending…';
     setStatus('Sending your message…');
 
+    // Include common variable name aliases so the EmailJS template works
+    // regardless of which placeholder names were used in the dashboard.
     const payload = {
+      // name aliases
       from_name: name,
+      name: name,
+      user_name: name,
+      // email aliases (sender / reply-to)
       from_email: email,
+      email: email,
+      user_email: email,
       reply_to: email,
+      // recipient aliases (in case the template references these)
+      to_email: CONTACT_EMAIL,
+      to_name: 'Christian Biscocho',
+      // subject aliases
       subject: subject || 'General enquiry',
-      message,
+      title: subject || 'General enquiry',
+      // message aliases
+      message: message,
+      message_html: message,
     };
 
     try {
@@ -174,9 +189,14 @@ if (form && formStatus) {
         form.reset();
       }
     } catch (err) {
+      // Surface the real EmailJS error so issues are easy to diagnose.
       console.error('Email send failed:', err);
+      const detail =
+        (err && (err.text || err.message)) ||
+        (typeof err === 'string' ? err : '') ||
+        'Unknown error';
       setStatus(
-        'Sorry, something went wrong sending your message. ' +
+        `Sorry, your message could not be sent (${detail}). ` +
         `Please email ${CONTACT_EMAIL} directly.`,
         false
       );

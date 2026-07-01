@@ -211,6 +211,38 @@ if (form && formStatus) {
   });
 }
 
+/* ---- Dynamically load signature dish images ---- */
+const galleryContainer = document.getElementById('gallery');
+if (galleryContainer) {
+  try {
+    // Use webpack's require.context to load all images from signature-dishes folder
+    const dishImages = require.context('../img/signature-dishes', false, /\.(jpg|jpeg|png|gif|webp)$/i);
+    const imageFiles = dishImages.keys().sort();
+
+    imageFiles.forEach((imagePath) => {
+      const imageUrl = dishImages(imagePath);
+      const fileName = imagePath.replace(/^\.\//, '');
+
+      // Create figure element
+      const figure = document.createElement('figure');
+      figure.className = 'gallery-item';
+
+      // Create img element with generic alt text based on filename
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = `Chef Christian's signature dish - ${fileName.replace(/\.[^/.]+$/, '')}`;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+
+      figure.appendChild(img);
+      galleryContainer.appendChild(figure);
+    });
+  } catch (e) {
+    // Gracefully handle if signature-dishes folder doesn't exist yet
+    console.info('Signature dishes folder not found or empty. Add images to img/signature-dishes/ to display them.');
+  }
+}
+
 /* ---- Scroll-reveal cards (Intersection Observer) ---- */
 const revealElements = document.querySelectorAll('.gallery-item, .about-grid, .contact-grid');
 if ('IntersectionObserver' in window) {
@@ -230,4 +262,3 @@ if ('IntersectionObserver' in window) {
     observer.observe(el);
   });
 }
-

@@ -188,7 +188,7 @@ address { font-style: normal; }
   background-color: var(--color-dark);
   background-image:
     linear-gradient(rgba(28, 22, 18, 0.92), rgba(28, 22, 18, 0.95)),
-    url('../img/roasted_meat.jpg');
+    url('../img/IMG_1568.JPEG');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -301,11 +301,15 @@ address { font-style: normal; }
   justify-content: space-between;
 }
 
-.logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  color: var(--color-white);
-  letter-spacing: 0.02em;
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  display: block;
+  height: 52px;
+  width: auto;
 }
 
 .nav-menu {
@@ -360,7 +364,7 @@ address { font-style: normal; }
   justify-content: center;
   text-align: center;
   background-color: var(--color-dark);
-  background-image: url('../img/Seared_steak.jpg');
+  background-image: url('../img/citrus_cake.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -395,6 +399,14 @@ address { font-style: normal; }
   color: rgba(255,255,255,0.85);
   max-width: 560px;
   margin: 0 auto 40px;
+}
+
+.hero-logo {
+  display: block;
+  margin: 24px auto 0;
+  height: 120px;
+  width: auto;
+  max-width: min(220px, 55vw);
 }
 
 /* ======================================================================

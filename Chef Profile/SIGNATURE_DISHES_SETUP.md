@@ -1,13 +1,13 @@
-# Automatic Signature Dishes Setup - Complete! ✅
+# Signature Dishes Image Guide
 
 ## What Changed
 
-Your Chef Profile website now has **automatic image loading** for the Signature Dishes section. No more manually editing HTML!
+Your Chef Profile website currently uses a **static HTML gallery** for the Signature Dishes section, so images show reliably without depending on JavaScript.
 
 ### Files Modified:
-1. **index.html** - Removed hardcoded gallery items, replaced with a single container that gets populated automatically
-2. **js/app.js** - Added dynamic image loading using webpack's `require.context()`
-3. **webpack.config.prod.js** - Added configuration to copy the signature-dishes folder during build
+1. **index.html** - Contains the gallery markup and image `<figure>` elements
+2. **js/app.js** - Includes a fallback loader only if the gallery is empty
+3. **webpack.config.prod.js** - Copies the signature-dishes folder during build
 
 ### New Folder Created:
 - **img/signature-dishes/** - This is where you put your dish images
@@ -24,37 +24,47 @@ Place your dish images in: `img/signature-dishes/`
 - gif
 - webp
 
-### 2. Rebuild the Site
+### 2. Add the Image to the Gallery
 
-For **development** (with hot reload):
+Open `index.html` and add a new `<figure class="gallery-item">` inside the `#gallery` container, for example:
+
+```html
+<figure class="gallery-item">
+  <img src="img/signature-dishes/my_new_dish.jpg" alt="Chef Christian's signature dish - my_new_dish" loading="lazy" decoding="async">
+</figure>
+```
+
+### 3. Refresh / Rebuild
+
+For local development:
 ```bash
 npm start
 ```
 
-For **production** build:
+For production:
 ```bash
 npm run build
 ```
 
-### 3. Done!
-Images will automatically appear in the Signature Dishes gallery section in alphabetical order by filename.
+### 4. Done!
+Your new image will appear in the Signature Dishes gallery.
 
 ## Example
 
-**Before:** You had to manually add this to index.html:
+**Before:** You had to manually add this to `index.html`:
 ```html
 <figure class="gallery-item">
   <img src="img/Seared_steak.jpg" alt="Seared steak...">
 </figure>
 ```
 
-**Now:** Just save `Seared_steak.jpg` to `img/signature-dishes/` and run `npm start` - done! ✨
+**Now:** Save `Seared_steak.jpg` to `img/signature-dishes/` and add the matching `<figure>` block in the gallery.
 
 ## Features
 
-✅ **Automatic** - No HTML editing needed
+✅ **Reliable** - Images are present directly in the HTML
 ✅ **Lazy Loading** - Images load as needed for better performance
-✅ **Alphabetical Order** - Images display sorted by filename
+✅ **Fallback Loader** - JavaScript can still populate the gallery if needed
 ✅ **Auto Alt Text** - Alt text is generated from filename
 ✅ **Responsive** - Gallery maintains existing CSS styling
 ✅ **Build Compatible** - Works with both dev and production builds
@@ -67,20 +77,25 @@ Images will automatically appear in the Signature Dishes gallery section in alph
 
 2. **Image naming affects alt text:**
    - File: `pan_seared_salmon.jpg`
-   - Auto alt text: "Chef Christian's signature dish - pan_seared_salmon"
+   - Alt text: `Chef Christian's signature dish - pan_seared_salmon`
 
-3. **Clean up old code:**
-   - All the hardcoded image references in the old gallery have been removed
-   - The old images in `img/` folder won't display unless moved to `img/signature-dishes/`
+3. **To replace an image:**
+   - Overwrite the file in `img/signature-dishes/` using the same filename
+   - If the filename changes, update the `src` in `index.html`
+
+4. **To add a new image:**
+   - Copy it into `img/signature-dishes/`
+   - Add a new `<figure>` block in the gallery
 
 ## No Backend Required
 
-Everything works **client-side** with webpack - no server-side code needed! Just:
-1. Add images to the folder
-2. Rebuild
-3. Deploy
+Everything works **client-side** with webpack — no server-side code needed. Just:
+1. Add or replace the image file
+2. Update `index.html` if it’s a new image
+3. Run `npm start` or `npm run build`
+4. Deploy
 
 ---
 
-**That's it! Your dish gallery is now fully automated.** 🍽️
+**That's it! Your dish gallery is now easy to update and reliable.** 🍽️
 

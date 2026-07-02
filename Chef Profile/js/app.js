@@ -213,7 +213,7 @@ if (form && formStatus) {
 
 /* ---- Dynamically load signature dish images ---- */
 const galleryContainer = document.getElementById('gallery');
-if (galleryContainer) {
+if (galleryContainer && !galleryContainer.children.length) {
   try {
     // Use webpack's require.context to load all images from signature-dishes folder
     const dishImages = require.context('../img/signature-dishes', false, /\.(jpg|jpeg|png|gif|webp)$/i);
